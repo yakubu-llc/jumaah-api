@@ -32,7 +32,7 @@ func (s *MusalahService) GetAll(ctx context.Context, limit int, cursor int) ([]m
 	return s.repositories.Musalah().GetAll(ctx, paginationParams)
 }
 
-func (s *MusalahService) Create(ctx context.Context, params musalah.CreateParams) (musalah.Musalah, error) {
+func (s *MusalahService) Create(ctx context.Context, params musalah.CreateMusalahParams) (musalah.Musalah, error) {
 	return s.repositories.Musalah().Create(ctx, params)
 }
 
@@ -40,6 +40,6 @@ func (s *MusalahService) Delete(ctx context.Context, id int) error {
 	return s.repositories.Musalah().Delete(ctx, id)
 }
 
-func (s *MusalahService) Update(ctx context.Context, id int, params musalah.UpdateParams) (musalah.Musalah, error) {
+func (s *MusalahService) Update(ctx context.Context, id int, params musalah.UpdateMusalahParams) (musalah.Musalah, error) {
 	return s.repositories.Musalah().Update(ctx, id, params)
 }

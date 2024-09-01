@@ -7,6 +7,8 @@ import (
 	"time"
 
 	"github.com/yakubu-llc/jumaah-api/internal/storage"
+	"github.com/yakubu-llc/jumaah-api/internal/storage/postgres/account"
+	"github.com/yakubu-llc/jumaah-api/internal/storage/postgres/jumaah"
 	"github.com/yakubu-llc/jumaah-api/internal/storage/postgres/musalah"
 
 	"github.com/alexlast/bunzap"
@@ -83,6 +85,8 @@ func configDBPool(config Config) (*pgxpool.Config, error) {
 
 type transaction struct {
 	musalahRepo *musalah.MusalahRepository
+	jumaahRepo  *jumaah.JumaahRepository
+	accountRepo *account.AccountRepository
 	tx          *bun.Tx
 	ctx         context.Context
 }
@@ -91,6 +95,13 @@ func (t *transaction) Musalah() storage.MusalahRepository {
 	return t.musalahRepo
 }
 
+func (t *transaction) Jumaah() storage.JumaahRepository {
+	return t.jumaahRepo
+}
+
+func (t *transaction) Account() storage.AccountRepository {
+	return t.accountRepo
+}
 func (t *transaction) Commit() error {
 	return t.tx.Commit()
 }
@@ -107,12 +118,16 @@ func (t *transaction) SubTransaction() (storage.Transaction, error) {
 
 	return &transaction{
 		musalahRepo: musalah.NewMusalahRepository(tx, t.ctx),
+		jumaahRepo:  jumaah.NewJumaahRepository(tx, t.ctx),
+		accountRepo: account.NewAccountRepository(tx, t.ctx),
 		tx:          &tx,
 	}, nil
 }
 
 type Repository struct {
 	musalahRepo *musalah.MusalahRepository
+	jumaahRepo  *jumaah.JumaahRepository
+	accountRepo *account.AccountRepository
 	db          *bun.DB
 	ctx         context.Context
 }
@@ -151,6 +166,8 @@ func NewRepository(config Config, ctx context.Context, logger *zap.Logger) *Repo
 	log.Println("Successfully connected to the database.")
 	return &Repository{
 		musalahRepo: musalah.NewMusalahRepository(db, ctx),
+		jumaahRepo:  jumaah.NewJumaahRepository(db, ctx),
+		accountRepo: account.NewAccountRepository(db, ctx),
 		db:          db,
 		ctx:         ctx,
 	}
@@ -158,6 +175,14 @@ func NewRepository(config Config, ctx context.Context, logger *zap.Logger) *Repo
 
 func (r *Repository) Musalah() storage.MusalahRepository {
 	return r.musalahRepo
+}
+
+func (r *Repository) Jumaah() storage.JumaahRepository {
+	return r.jumaahRepo
+}
+
+func (r *Repository) Account() storage.AccountRepository {
+	return r.accountRepo
 }
 
 func (r *Repository) HealthCheck(ctx context.Context) error {
@@ -172,6 +197,7 @@ func (r *Repository) NewTransaction() (storage.Transaction, error) {
 
 	return &transaction{
 		musalahRepo: musalah.NewMusalahRepository(tx, r.ctx),
+		jumaahRepo:  jumaah.NewJumaahRepository(tx, r.ctx),
 		tx:          &tx,
 		ctx:         r.ctx,
 	}, nil

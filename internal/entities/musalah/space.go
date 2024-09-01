@@ -14,12 +14,12 @@ type Musalah struct {
 	shared.Timestamps
 }
 
-// CreateParams contains the parameters for creating a new musalah.
-type CreateParams struct {
+// CreateMusalahParams contains the parameters for creating a new musalah.
+type CreateMusalahParams struct {
 	Name string `json:"name"`
 }
 
-// UpdateParams contains the parameters for updating a musalah.
-type UpdateParams struct {
+// UpdateMusalahParams contains the parameters for updating a musalah.
+type UpdateMusalahParams struct {
 	Name string `json:"name"`
 }

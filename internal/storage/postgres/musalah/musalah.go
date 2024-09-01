@@ -24,7 +24,7 @@ func NewMusalahRepository(db bun.IDB, ctx context.Context) *MusalahRepository {
 	}
 }
 
-func (r *MusalahRepository) Create(ctx context.Context, params musalah.CreateParams) (musalah.Musalah, error) {
+func (r *MusalahRepository) Create(ctx context.Context, params musalah.CreateMusalahParams) (musalah.Musalah, error) {
 	resp := musalah.Musalah{}
 
 	err := r.db.
@@ -37,7 +37,7 @@ func (r *MusalahRepository) Create(ctx context.Context, params musalah.CreatePar
 	return resp, err
 }
 
-func (r *MusalahRepository) Update(ctx context.Context, id int, params musalah.UpdateParams) (musalah.Musalah, error) {
+func (r *MusalahRepository) Update(ctx context.Context, id int, params musalah.UpdateMusalahParams) (musalah.Musalah, error) {
 	resp := musalah.Musalah{}
 
 	log.Println(r.db.

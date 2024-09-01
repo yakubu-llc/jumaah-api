@@ -87,13 +87,11 @@ func (h *httpHandler) getAll(ctx context.Context, input *shared.PaginationReques
 }
 
 type CreateMusalahInput struct {
-	Body struct {
-		musalah.CreateParams `json:"musalah"`
-	}
+	Body musalah.CreateMusalahParams `json:"musalah"`
 }
 
 func (h *httpHandler) create(ctx context.Context, input *CreateMusalahInput) (*SingleMusalahResponse, error) {
-	musalah, err := h.musalahService.Create(ctx, input.Body.CreateParams)
+	musalah, err := h.musalahService.Create(ctx, input.Body)
 	if err != nil {
 		h.logger.Error("failed to create musalah", zap.Error(err))
 		return nil, huma.Error500InternalServerError("An error occurred while creating the musalah")
@@ -108,9 +106,7 @@ func (h *httpHandler) create(ctx context.Context, input *CreateMusalahInput) (*S
 
 type UpdateMusalahInput struct {
 	shared.PathIDParam
-	Body struct {
-		Musalah musalah.UpdateParams `json:"musalah"`
-	}
+	Body musalah.UpdateMusalahParams `json:"musalah"`
 }
 
 func (h *httpHandler) update(ctx context.Context, input *UpdateMusalahInput) (*SingleMusalahResponse, error) {
@@ -125,7 +121,7 @@ func (h *httpHandler) update(ctx context.Context, input *UpdateMusalahInput) (*S
 		}
 	}
 
-	musalah, err := h.musalahService.Update(ctx, input.ID, input.Body.Musalah)
+	musalah, err := h.musalahService.Update(ctx, input.ID, input.Body)
 
 	if err != nil {
 		h.logger.Error("failed to update musalah", zap.Error(err))
