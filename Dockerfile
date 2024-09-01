@@ -17,7 +17,7 @@ COPY . .
 RUN apk add --no-cache make
 
 # Build the Go app
-RUN go build -o bin/jummah cmd/app/main.go
+RUN go build -o bin/github.com/yakubu-llc/jummah-api cmd/app/main.go
 
 # Expose port 3000 to the outside world
 EXPOSE 3000
@@ -26,4 +26,4 @@ EXPOSE 3000
 RUN printenv > .env.local
 
 # Command to run the executable
-CMD ["./bin/jummah"]
+CMD ["./bin/github.com/yakubu-llc/jummah-api"]
