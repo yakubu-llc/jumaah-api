@@ -3,7 +3,7 @@ package http
 import (
 	"net/http"
 
-	"github.com/yakubu-llc/jummah-api/internal/service"
+	"github.com/yakubu-llc/jumaah-api/internal/service"
 
 	"go.uber.org/zap"
 )

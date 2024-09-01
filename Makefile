@@ -2,10 +2,10 @@
 include .env.local
 
 build:
-	@go build -tags dev -o bin/github.com/yakubu-llc/jummah-api cmd/app/main.go  
+	@go build -tags dev -o bin/github.com/yakubu-llc/jumaah-api cmd/app/main.go  
 
 run: build
-	@./bin/github.com/yakubu-llc/jummah-api
+	@./bin/github.com/yakubu-llc/jumaah-api
 
 install:
 	@go get ./...

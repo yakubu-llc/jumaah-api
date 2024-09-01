@@ -5,9 +5,9 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/yakubu-llc/jummah-api/internal/entities/musalah"
-	"github.com/yakubu-llc/jummah-api/internal/server/http/handler/shared"
-	"github.com/yakubu-llc/jummah-api/internal/service"
+	"github.com/yakubu-llc/jumaah-api/internal/entities/musalah"
+	"github.com/yakubu-llc/jumaah-api/internal/server/http/handler/shared"
+	"github.com/yakubu-llc/jumaah-api/internal/service"
 
 	"github.com/danielgtaylor/huma/v2"
 	"go.uber.org/zap"

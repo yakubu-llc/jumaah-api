@@ -1,8 +1,8 @@
 package http
 
 import (
-	"github.com/yakubu-llc/jummah-api/internal/server/http/handler/health"
-	"github.com/yakubu-llc/jummah-api/internal/server/http/handler/musalah"
+	"github.com/yakubu-llc/jumaah-api/internal/server/http/handler/health"
+	"github.com/yakubu-llc/jumaah-api/internal/server/http/handler/musalah"
 
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/danielgtaylor/huma/v2/adapters/humachi"

@@ -6,9 +6,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/yakubu-llc/jummah-api/internal/server/http"
-	"github.com/yakubu-llc/jummah-api/internal/service/domain"
-	"github.com/yakubu-llc/jummah-api/internal/storage/postgres"
+	"github.com/yakubu-llc/jumaah-api/internal/server/http"
+	"github.com/yakubu-llc/jumaah-api/internal/service/domain"
+	"github.com/yakubu-llc/jumaah-api/internal/storage/postgres"
 
 	"github.com/danielgtaylor/huma/v2/humacli"
 	"github.com/joho/godotenv"

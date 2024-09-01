@@ -1,10 +1,10 @@
 package domain
 
 import (
-	"github.com/yakubu-llc/jummah-api/internal/service"
-	"github.com/yakubu-llc/jummah-api/internal/service/domain/health"
-	"github.com/yakubu-llc/jummah-api/internal/service/domain/musalah"
-	"github.com/yakubu-llc/jummah-api/internal/storage"
+	"github.com/yakubu-llc/jumaah-api/internal/service"
+	"github.com/yakubu-llc/jumaah-api/internal/service/domain/health"
+	"github.com/yakubu-llc/jumaah-api/internal/service/domain/musalah"
+	"github.com/yakubu-llc/jumaah-api/internal/storage"
 )
 
 // NewService implementation for storage of all services.

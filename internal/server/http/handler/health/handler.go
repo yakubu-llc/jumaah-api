@@ -3,7 +3,7 @@ package health
 import (
 	"context"
 
-	"github.com/yakubu-llc/jummah-api/internal/service"
+	"github.com/yakubu-llc/jumaah-api/internal/service"
 	"go.uber.org/zap"
 )
 

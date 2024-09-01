@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/yakubu-llc/jummah-api/internal/storage"
+	"github.com/yakubu-llc/jumaah-api/internal/storage"
 )
 
 type HealthService struct {

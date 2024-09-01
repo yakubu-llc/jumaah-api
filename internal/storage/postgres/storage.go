@@ -6,8 +6,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/yakubu-llc/jummah-api/internal/storage"
-	"github.com/yakubu-llc/jummah-api/internal/storage/postgres/musalah"
+	"github.com/yakubu-llc/jumaah-api/internal/storage"
+	"github.com/yakubu-llc/jumaah-api/internal/storage/postgres/musalah"
 
 	"github.com/alexlast/bunzap"
 	"github.com/jackc/pgx/v5/pgxpool"

@@ -1,4 +1,4 @@
-module github.com/yakubu-llc/jummah-api
+module github.com/yakubu-llc/jumaah-api
 
 go 1.23.0
 

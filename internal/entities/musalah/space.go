@@ -2,7 +2,7 @@ package musalah
 
 import (
 	"github.com/uptrace/bun"
-	"github.com/yakubu-llc/jummah-api/internal/entities/shared"
+	"github.com/yakubu-llc/jumaah-api/internal/entities/shared"
 )
 
 // Musalah represents a musalah entity.

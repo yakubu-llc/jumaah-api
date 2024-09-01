@@ -3,9 +3,9 @@ package musalah
 import (
 	"context"
 
-	"github.com/yakubu-llc/jummah-api/internal/entities/musalah"
-	"github.com/yakubu-llc/jummah-api/internal/storage"
-	"github.com/yakubu-llc/jummah-api/internal/storage/postgres/shared"
+	"github.com/yakubu-llc/jumaah-api/internal/entities/musalah"
+	"github.com/yakubu-llc/jumaah-api/internal/storage"
+	"github.com/yakubu-llc/jumaah-api/internal/storage/postgres/shared"
 )
 
 type MusalahService struct {

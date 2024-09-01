@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/yakubu-llc/jummah-api/internal/entities/musalah"
+	"github.com/yakubu-llc/jumaah-api/internal/entities/musalah"
 )
 
 type MusalahService interface {

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/danielgtaylor/huma/v2"
-	"github.com/yakubu-llc/jummah-api/internal/service"
+	"github.com/yakubu-llc/jumaah-api/internal/service"
 	"go.uber.org/zap"
 )
 

@@ -3,7 +3,7 @@ package health
 import (
 	"net/http"
 
-	"github.com/yakubu-llc/jummah-api/internal/service"
+	"github.com/yakubu-llc/jumaah-api/internal/service"
 
 	"github.com/danielgtaylor/huma/v2"
 	"go.uber.org/zap"
