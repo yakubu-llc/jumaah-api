@@ -33,9 +33,6 @@ type SingleMusalahResponse struct {
 }
 
 func (h *httpHandler) getByID(ctx context.Context, input *shared.PathIDParam) (*SingleMusalahResponse, error) {
-	user := shared.GetAuthenticatedUser(ctx)
-	h.logger.Debug("user", zap.Any("user", user))
-
 	musalah, err := h.musalahService.GetById(ctx, input.ID)
 	if err != nil {
 		switch {
@@ -81,7 +78,7 @@ func (h *httpHandler) getAll(ctx context.Context, input *shared.PaginationReques
 	resp.Body.Musalahs = musalahs
 
 	if len(musalahs) == LIMIT {
-		resp.Body.Cursor = &musalahs[len(musalahs)-1].ID
+		resp.Body.NextCursor = &musalahs[len(musalahs)-1].ID
 		resp.Body.HasMore = true
 		resp.Body.Musalahs = resp.Body.Musalahs[:len(resp.Body.Musalahs)-1]
 	}

@@ -3,6 +3,7 @@ package account
 import (
 	"context"
 
+	"github.com/google/uuid"
 	"github.com/yakubu-llc/jumaah-api/internal/entities/account"
 	"github.com/yakubu-llc/jumaah-api/internal/storage"
 	"github.com/yakubu-llc/jumaah-api/internal/storage/postgres/shared"
@@ -21,6 +22,10 @@ func NewAccountService(repositories storage.Repository) *AccountService {
 
 func (s *AccountService) GetById(ctx context.Context, id int) (account.Account, error) {
 	return s.repositories.Account().GetById(ctx, id)
+}
+
+func (s *AccountService) GetByUserId(ctx context.Context, userId uuid.UUID) (account.Account, error) {
+	return s.repositories.Account().GetByUserId(ctx, userId)
 }
 
 func (s *AccountService) GetAll(ctx context.Context, limit int, cursor int) ([]account.Account, error) {

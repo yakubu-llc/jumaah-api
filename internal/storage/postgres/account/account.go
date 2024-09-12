@@ -7,6 +7,7 @@ import (
 	"github.com/yakubu-llc/jumaah-api/internal/entities/account"
 	"github.com/yakubu-llc/jumaah-api/internal/storage/postgres/shared"
 
+	"github.com/google/uuid"
 	"github.com/uptrace/bun"
 )
 
@@ -74,6 +75,18 @@ func (r *AccountRepository) GetById(ctx context.Context, id int) (account.Accoun
 		NewSelect().
 		Model(&resp).
 		Where("id = ?", id).
+		Scan(ctx)
+
+	return resp, err
+}
+
+func (r *AccountRepository) GetByUserId(ctx context.Context, userId uuid.UUID) (account.Account, error) {
+	resp := account.Account{}
+
+	err := r.db.
+		NewSelect().
+		Model(&resp).
+		Where("user_id = ?", userId).
 		Scan(ctx)
 
 	return resp, err

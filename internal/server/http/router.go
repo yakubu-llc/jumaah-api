@@ -42,6 +42,7 @@ func (s *Server) routes() chi.Router {
 		s.services.AccountService,
 		humaApi,
 		s.logger,
+		s.supabaseClient,
 	)
 
 	health.RegisterHumaRoutes(

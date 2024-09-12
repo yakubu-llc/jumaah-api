@@ -4,6 +4,8 @@ import (
 	"net/http"
 
 	"github.com/danielgtaylor/huma/v2"
+	"github.com/supabase-community/supabase-go"
+	"github.com/yakubu-llc/jumaah-api/internal/server/http/middleware"
 	"github.com/yakubu-llc/jumaah-api/internal/service"
 	"go.uber.org/zap"
 )
@@ -12,6 +14,7 @@ func RegisterHumaRoutes(
 	accountService service.AccountService,
 	humaApi huma.API,
 	logger *zap.Logger,
+	supabaseClient *supabase.Client,
 ) {
 
 	handler := &httpHandler{
@@ -19,7 +22,6 @@ func RegisterHumaRoutes(
 		logger:         logger,
 	}
 
-	// Register GET /test/{id}
 	huma.Register(humaApi, huma.Operation{
 		OperationID: "get-account-by-id",
 		Method:      http.MethodGet,
@@ -28,6 +30,23 @@ func RegisterHumaRoutes(
 		Description: "Get account by ID.",
 		Tags:        []string{"Account"},
 	}, handler.getByID)
+
+	huma.Register(humaApi, huma.Operation{
+		OperationID: "get-account-by-user-id",
+		Method:      http.MethodGet,
+		Path:        "/account/user/{userId}",
+		Summary:     "Get account by user ID",
+		Description: "Get account by user ID.",
+		Tags:        []string{"Account"},
+		Security: []map[string][]string{
+			{"bearerAuth": {}},
+		},
+		Middlewares: huma.Middlewares{
+			func(ctx huma.Context, next func(huma.Context)) {
+				middleware.WithUser(humaApi)(ctx, next, logger, supabaseClient)
+			},
+		},
+	}, handler.getByUserId)
 
 	huma.Register(humaApi, huma.Operation{
 		OperationID: "get-all-accounts",
@@ -45,6 +64,14 @@ func RegisterHumaRoutes(
 		Summary:     "Create a account",
 		Description: "Create a account.",
 		Tags:        []string{"Account"},
+		Security: []map[string][]string{
+			{"bearerAuth": {}},
+		},
+		Middlewares: huma.Middlewares{
+			func(ctx huma.Context, next func(huma.Context)) {
+				middleware.WithUser(humaApi)(ctx, next, logger, supabaseClient)
+			},
+		},
 	}, handler.create)
 
 	huma.Register(humaApi, huma.Operation{

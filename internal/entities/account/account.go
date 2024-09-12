@@ -1,6 +1,7 @@
 package account
 
 import (
+	"github.com/google/uuid"
 	"github.com/uptrace/bun"
 	"github.com/yakubu-llc/jumaah-api/internal/entities/shared"
 )
@@ -9,14 +10,16 @@ import (
 type Account struct {
 	bun.BaseModel `bun:"table:accounts"`
 
-	ID   int    `json:"id"`
-	Name string `json:"name"`
+	ID     int       `json:"id"`
+	UserID uuid.UUID `json:"userId" format:"uuid" minLength:"36" maxLength:"36"`
+	Name   string    `json:"name"`
 	shared.Timestamps
 }
 
 // CreateAccountParams contains the parameters for creating a new account.
 type CreateAccountParams struct {
-	Name string `json:"name"`
+	Name   string    `json:"name"`
+	UserID uuid.UUID `json:"userId" format:"uuid" minLength:"36" maxLength:"36"`
 }
 
 // UpdateAccountParams contains the parameters for updating a account.

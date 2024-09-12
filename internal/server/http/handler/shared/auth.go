@@ -6,11 +6,12 @@ import (
 	// "github.com/yakubu-llc/jumaah-api/internal/entities/account"
 
 	"github.com/supabase-community/gotrue-go/types"
+	"github.com/yakubu-llc/jumaah-api/internal/entities/account"
 )
 
 const (
 	UserContextKey    = "user"
-	// AccountContextKey = "account"
+	AccountContextKey = "account"
 )
 
 func GetAuthenticatedUser(ctx context.Context) types.User {
@@ -21,10 +22,10 @@ func GetAuthenticatedUser(ctx context.Context) types.User {
 	return types.User{}
 }
 
-// func GetAuthenticatedAccount(ctx context.Context) account.Account {
-// 	if ctxValue, ok := ctx.Value(AccountContextKey).(account.Account); ok {
-// 		return ctxValue
-// 	}
+func GetAuthenticatedAccount(ctx context.Context) account.Account {
+	if ctxValue, ok := ctx.Value(AccountContextKey).(account.Account); ok {
+		return ctxValue
+	}
 
-// 	return account.Account{}
-// }
+	return account.Account{}
+}

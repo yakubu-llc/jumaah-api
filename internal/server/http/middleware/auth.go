@@ -2,13 +2,11 @@ package middleware
 
 import (
 	"github.com/yakubu-llc/jumaah-api/internal/server/http/handler/shared"
-	// postgres "github.com/yakubu-llc/jumaah-api/internal/storage/postgres/shared"
+	"github.com/yakubu-llc/jumaah-api/internal/service"
 	"net/http"
 
-	// "github.com/yakubu-llc/jumaah-api/internal/service"
-
 	"github.com/danielgtaylor/huma/v2"
-	// "github.com/google/uuid"
+	"github.com/google/uuid"
 	"github.com/supabase-community/supabase-go"
 	"go.uber.org/zap"
 )
@@ -46,28 +44,25 @@ func WithUser(api huma.API) func(ctx huma.Context, next func(huma.Context), logg
 	}
 }
 
-// TODO: Implement when we have accounts
-// func WithAccount(api huma.API) func(ctx huma.Context, next func(huma.Context), logger *zap.Logger, sv *service.Service) {
-// 	return func(ctx huma.Context, next func(huma.Context), logger *zap.Logger, sv *service.Service) {
-// 		user := shared.GetAuthenticatedUser(ctx.Context())
-// 		if user.ID == uuid.Nil {
-// 			huma.WriteErr(api, ctx, http.StatusUnauthorized,
-// 				"User not authenticated",
-// 			)
-// 			return
-// 		}
+func WithAccount(api huma.API) func(ctx huma.Context, next func(huma.Context), logger *zap.Logger, sv *service.Service) {
+	return func(ctx huma.Context, next func(huma.Context), logger *zap.Logger, sv *service.Service) {
+		user := shared.GetAuthenticatedUser(ctx.Context())
+		if user.ID == uuid.Nil {
+			huma.WriteErr(api, ctx, http.StatusUnauthorized,
+				"User not authenticated",
+			)
+			return
+		}
 
-// 		queryResp, err := sv.AccountService.GetByUserId(ctx.Context(), user.ID, postgres.GetManyRequest{
-// 			IncludeDeleted: false,
-// 		})
-// 		if err != nil {
-// 			logger.Error("Error getting account", zap.Error(err))
-// 			huma.WriteErr(api, ctx, http.StatusInternalServerError,
-// 				"Something went wrong",
-// 			)
-// 			return
-// 		}
+		queryResp, err := sv.AccountService.GetByUserId(ctx.Context(), user.ID)
+		if err != nil {
+			logger.Error("Error getting account", zap.Error(err))
+			huma.WriteErr(api, ctx, http.StatusInternalServerError,
+				"Something went wrong",
+			)
+			return
+		}
 
-// 		next(huma.WithValue(ctx, shared.AccountContextKey, queryResp))
-// 	}
-// }
+		next(huma.WithValue(ctx, shared.AccountContextKey, queryResp))
+	}
+}

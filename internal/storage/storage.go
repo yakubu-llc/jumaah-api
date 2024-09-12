@@ -3,6 +3,7 @@ package storage
 import (
 	"context"
 
+	"github.com/google/uuid"
 	"github.com/yakubu-llc/jumaah-api/internal/entities/account"
 	"github.com/yakubu-llc/jumaah-api/internal/entities/jumaah"
 	"github.com/yakubu-llc/jumaah-api/internal/entities/musalah"
@@ -38,6 +39,7 @@ type AccountRepository interface {
 	GetAll(ctx context.Context, paginationParams shared.PaginationRequest) ([]account.Account, error)
 	Update(ctx context.Context, id int, params account.UpdateAccountParams) (account.Account, error)
 	GetById(ctx context.Context, id int) (account.Account, error)
+	GetByUserId(ctx context.Context, userId uuid.UUID) (account.Account, error)
 }
 
 type RepositoryProvider interface {

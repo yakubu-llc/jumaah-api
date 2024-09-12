@@ -5,7 +5,6 @@ import (
 
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/supabase-community/supabase-go"
-	"github.com/yakubu-llc/jumaah-api/internal/server/http/middleware"
 	"github.com/yakubu-llc/jumaah-api/internal/service"
 	"go.uber.org/zap"
 )
@@ -30,14 +29,7 @@ func RegisterHumaRoutes(
 		Summary:     "Get musalah by ID",
 		Description: "Get musalah by ID.",
 		Tags:        []string{"Musalah"},
-		Security: []map[string][]string{
-			{"bearerAuth": {}},
-		},
-		Middlewares: huma.Middlewares{
-			func(ctx huma.Context, next func(huma.Context)) {
-				middleware.WithUser(humaApi)(ctx, next, logger, supabaseClient)
-			},
-		},
+		
 	}, handler.getByID)
 
 	huma.Register(humaApi, huma.Operation{

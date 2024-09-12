@@ -78,7 +78,7 @@ func (h *httpHandler) getAll(ctx context.Context, input *shared.PaginationReques
 	resp.Body.Jumaahs = jumaahs
 
 	if len(jumaahs) == LIMIT {
-		resp.Body.Cursor = &jumaahs[len(jumaahs)-1].ID
+		resp.Body.NextCursor = &jumaahs[len(jumaahs)-1].ID
 		resp.Body.HasMore = true
 		resp.Body.Jumaahs = resp.Body.Jumaahs[:len(resp.Body.Jumaahs)-1]
 	}
@@ -219,7 +219,7 @@ func (h *httpHandler) getAttendees(ctx context.Context, input *GetAttendeesInput
 	resp.Body.Attendees = attendees
 
 	if len(attendees) == input.Limit+1 {
-		resp.Body.Cursor = &attendees[len(attendees)-1].AccountID
+		resp.Body.NextCursor = &attendees[len(attendees)-1].AccountID
 		resp.Body.HasMore = true
 		resp.Body.Attendees = resp.Body.Attendees[:len(resp.Body.Attendees)-1]
 	}
