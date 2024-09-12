@@ -33,6 +33,9 @@ type SingleMusalahResponse struct {
 }
 
 func (h *httpHandler) getByID(ctx context.Context, input *shared.PathIDParam) (*SingleMusalahResponse, error) {
+	user := shared.GetAuthenticatedUser(ctx)
+	h.logger.Debug("user", zap.Any("user", user))
+
 	musalah, err := h.musalahService.GetById(ctx, input.ID)
 	if err != nil {
 		switch {

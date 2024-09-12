@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/supabase-community/supabase-go"
 	"github.com/yakubu-llc/jumaah-api/internal/server/http"
 	"github.com/yakubu-llc/jumaah-api/internal/service/domain"
 	"github.com/yakubu-llc/jumaah-api/internal/storage/postgres"
@@ -17,11 +18,13 @@ import (
 )
 
 type Options struct {
-	Port        int    `help:"Port to listen on" short:"p" default:"8080"`
-	DatabaseURL string `help:"Database URL" short:"d"`
-	APIName     string `help:"API Name" short:"n"`
-	APIVersion  string `help:"API Version" short:"v"`
-	BaseURL     string `help:"Base API URL" short:"B"`
+	Port               int    `help:"Port to listen on" short:"p" default:"8080"`
+	DatabaseURL        string `help:"Database URL" short:"d"`
+	APIName            string `help:"API Name" short:"n"`
+	APIVersion         string `help:"API Version" short:"v"`
+	BaseURL            string `help:"Base API URL" short:"B"`
+	SupabaseHost       string `help:"Supabase Host" short:"s"`
+	SupabaseServiceKey string `help:"Supabase Service Key" short:"k"`
 }
 
 func (o *Options) config() {
@@ -33,6 +36,8 @@ func (o *Options) config() {
 	o.APIName = os.Getenv("API_NAME")
 	o.APIVersion = os.Getenv("API_VERSION")
 	o.BaseURL = os.Getenv("BASE_API_URL")
+	o.SupabaseHost = os.Getenv("SUPABASE_HOST")
+	o.SupabaseServiceKey = os.Getenv("SUPABASE_SERVICE_KEY")
 }
 
 func main() {
@@ -56,11 +61,21 @@ func main() {
 
 		services := domain.NewService(repositories)
 
+		supabaseClient, err := supabase.NewClient(
+			options.SupabaseHost,
+			options.SupabaseServiceKey,
+			&supabase.ClientOptions{},
+		)
+		if err != nil {
+			logger.Fatal("Failed to create supabase client", zap.Error(err))
+		}
+
 		server := http.NewServer(
 			services,
 			options.APIName,
 			options.APIVersion,
 			logger,
+			supabaseClient,
 		)
 
 		hooks.OnStart(func() {

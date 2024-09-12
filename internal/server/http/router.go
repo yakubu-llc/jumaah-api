@@ -15,13 +15,13 @@ func (s *Server) routes() chi.Router {
 	router := chi.NewMux()
 
 	config := huma.DefaultConfig(s.apiName, s.apiVersion)
-	// config.Components.SecuritySchemes = map[string]*huma.SecurityScheme{
-	// 	"bearerAuth": {
-	// 		Type:         "http",
-	// 		Scheme:       "bearer",
-	// 		BearerFormat: "JWT",
-	// 	},
-	// }
+	config.Components.SecuritySchemes = map[string]*huma.SecurityScheme{
+		"bearerAuth": {
+			Type:         "http",
+			Scheme:       "bearer",
+			BearerFormat: "JWT",
+		},
+	}
 
 	humaApi := humachi.New(router, config)
 
@@ -29,6 +29,7 @@ func (s *Server) routes() chi.Router {
 		s.services.MusalahService,
 		humaApi,
 		s.logger,
+		s.supabaseClient,
 	)
 
 	jumaah.RegisterHumaRoutes(
